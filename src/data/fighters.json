@@ -1,0 +1,74 @@
+[
+  {
+    "id": "edison",
+    "name": "Thomas Alva Edison",
+    "era": "Menlo Park Youth (29)",
+    "faction": "Pioneers of Science",
+    "archetype": "zoner",
+    "stats": { "hp": 1000, "speed": 5, "power": 85 },
+    "visuals": {
+      "rimColor": "#facc15",
+      "hairStyle": "parted_goggles",
+      "weapon": "tesla_bulb"
+    },
+    "specialMove": {
+      "name": "Menlo Voltage",
+      "input": ["Down", "Forward", "Attack1"],
+      "damage": 120
+    }
+  },
+  {
+    "id": "kishimoto",
+    "name": "Masashi Kishimoto",
+    "era": "90s Rookie Mangaka (24)",
+    "faction": "Modern Creators",
+    "archetype": "rushdown",
+    "stats": { "hp": 950, "speed": 7, "power": 80 },
+    "visuals": {
+      "rimColor": "#f97316",
+      "hairStyle": "spiky_headband",
+      "weapon": "giant_gpen"
+    },
+    "specialMove": {
+      "name": "Ink Shadow Slash",
+      "input": ["Down", "Forward", "Attack1"],
+      "damage": 110
+    }
+  },
+  {
+    "id": "tesla",
+    "name": "Nikola Tesla",
+    "era": "New York Arrival (28)",
+    "faction": "Pioneers of Science",
+    "archetype": "speedster",
+    "stats": { "hp": 920, "speed": 8, "power": 82 },
+    "visuals": {
+      "rimColor": "#38bdf8",
+      "hairStyle": "sleek_side",
+      "weapon": "ac_gauntlet"
+    },
+    "specialMove": {
+      "name": "Alternating Arc",
+      "input": ["Down", "Forward", "Attack1"],
+      "damage": 115
+    }
+  },
+  {
+    "id": "bruce_lee",
+    "name": "Bruce Lee",
+    "era": "Wing Chun Hong Kong (21)",
+    "faction": "Legendary Warriors",
+    "archetype": "brawler",
+    "stats": { "hp": 980, "speed": 9, "power": 90 },
+    "visuals": {
+      "rimColor": "#ef4444",
+      "hairStyle": "wingchun_classic",
+      "weapon": "nunchaku"
+    },
+    "specialMove": {
+      "name": "One-Inch Dragon",
+      "input": ["Down", "Forward", "Attack1"],
+      "damage": 135
+    }
+  }
+]
