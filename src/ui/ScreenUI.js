@@ -1,10 +1,8 @@
 import { StickmanRenderer } from '../render/StickmanRenderer.js';
 
 export class ScreenUI {
-  // 1. LAYAR UTAMA (TITLE SCREEN)
-  static drawTitleScreen(ctx, canvas, menuIndex) {
+  static drawTitleScreen(ctx, canvas, menuIndex, selectingDifficulty = false, difficultyIndex = 1) {
     ctx.save();
-    // Latar gelap radial dramatis
     const bg = ctx.createRadialGradient(canvas.width / 2, 240, 40, canvas.width / 2, 280, 560);
     bg.addColorStop(0, '#2a0808');
     bg.addColorStop(0.55, '#0c0a0d');
@@ -12,192 +10,239 @@ export class ScreenUI {
     ctx.fillStyle = bg;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    // Garis bingkai arcade luar
     ctx.strokeStyle = 'rgba(220, 38, 38, 0.35)';
     ctx.lineWidth = 2;
     ctx.strokeRect(24, 24, canvas.width - 48, canvas.height - 48);
 
-    // Subjudul atas
     ctx.textAlign = 'center';
     ctx.fillStyle = '#a1a1aa';
     ctx.font = 'bold 14px Courier New';
-    ctx.fillText('THE ULTIMATE HISTORICAL & CREATOR TOURNAMENT', canvas.width / 2, 115);
+    ctx.fillText('2V2 TAG-TEAM HISTORICAL & CREATOR TOURNAMENT', canvas.width / 2, 95);
 
-    // Logo Utama RAGNAROK
     ctx.shadowColor = '#dc2626';
     ctx.shadowBlur = 28;
     ctx.fillStyle = '#facc15';
-    ctx.font = 'italic bold 74px Courier New';
-    ctx.fillText('RAGNAROK', canvas.width / 2, 190);
+    ctx.font = 'italic bold 72px Courier New';
+    ctx.fillText('RAGNAROK', canvas.width / 2, 165);
 
-    // Sub-logo STICKMAN COMBAT
     ctx.shadowColor = '#ea580c';
     ctx.shadowBlur = 16;
     ctx.fillStyle = '#ef4444';
-    ctx.font = 'bold 28px Courier New';
-    ctx.fillText('— STICKMAN COMBAT —', canvas.width / 2, 232);
+    ctx.font = 'bold 26px Courier New';
+    ctx.fillText('— STICKMAN TAG COMBAT —', canvas.width / 2, 205);
     ctx.shadowBlur = 0;
 
-    // Tombol Pilihan Mode
-    const options = [
-      { label: '1P ARCADE (VS AI BOT)', desc: 'Uji kombo melawan bot taktis' },
-      { label: '2P VERSUS (LOCAL DUEL)', desc: 'Duel 1v1 dalam satu keyboard' },
-    ];
+    if (!selectingDifficulty) {
+      const options = [
+        { label: '1P TAG ARCADE (VS AI BOT)', desc: 'Pilih 2 Petarung (Main + Partner) melawan Tim AI' },
+        { label: '2P TAG VERSUS (LOCAL DUEL)', desc: 'Duel Tag-Team 2v2 dalam satu keyboard' },
+        { label: 'TRAINING MODE (LAB & HITBOX)', desc: 'Latihan kombo, Red Life, Meter & Hitbox Viewer [F1-F3]' },
+      ];
 
-    options.forEach((opt, idx) => {
-      const boxW = 420;
-      const boxH = 58;
-      const boxX = canvas.width / 2 - boxW / 2;
-      const boxY = 295 + idx * 78;
-      const isSelected = menuIndex === idx;
+      options.forEach((opt, idx) => {
+        const boxW = 470;
+        const boxH = 54;
+        const boxX = canvas.width / 2 - boxW / 2;
+        const boxY = 250 + idx * 68;
+        const isSelected = menuIndex === idx;
 
-      ctx.fillStyle = isSelected ? 'rgba(220, 38, 38, 0.22)' : 'rgba(24, 24, 27, 0.75)';
-      ctx.strokeStyle = isSelected ? '#facc15' : '#3f3f46';
-      ctx.lineWidth = isSelected ? 2.5 : 1.5;
-      ctx.fillRect(boxX, boxY, boxW, boxH);
-      ctx.strokeRect(boxX, boxY, boxW, boxH);
+        ctx.fillStyle = isSelected ? 'rgba(220, 38, 38, 0.24)' : 'rgba(24, 24, 27, 0.78)';
+        ctx.strokeStyle = isSelected ? '#facc15' : '#3f3f46';
+        ctx.lineWidth = isSelected ? 2.5 : 1.5;
+        ctx.fillRect(boxX, boxY, boxW, boxH);
+        ctx.strokeRect(boxX, boxY, boxW, boxH);
 
-      ctx.fillStyle = isSelected ? '#facc15' : '#e4e4e7';
-      ctx.font = 'bold 19px Courier New';
-      ctx.fillText(isSelected ? `▶ ${opt.label} ◀` : opt.label, canvas.width / 2, boxY + 26);
+        ctx.fillStyle = isSelected ? '#facc15' : '#e4e4e7';
+        ctx.font = 'bold 18px Courier New';
+        ctx.fillText(isSelected ? `▶ ${opt.label} ◀` : opt.label, canvas.width / 2, boxY + 24);
 
-      ctx.fillStyle = '#a1a1aa';
-      ctx.font = '12px Courier New';
-      ctx.fillText(opt.desc, canvas.width / 2, boxY + 46);
-    });
+        ctx.fillStyle = '#a1a1aa';
+        ctx.font = '11px Courier New';
+        ctx.fillText(opt.desc, canvas.width / 2, boxY + 42);
+      });
 
-    // Footer navigasi
-    ctx.fillStyle = '#71717a';
-    ctx.font = '13px Courier New';
-    ctx.fillText('Gunakan [W/S] atau [↑/↓] untuk memilih  •  Tekan [ENTER] atau [F] untuk Mulai', canvas.width / 2, canvas.height - 45);
+      ctx.fillStyle = '#71717a';
+      ctx.font = '13px Courier New';
+      ctx.fillText('Gunakan [W/S] atau [↑/↓] untuk memilih  •  Tekan [ENTER] atau [F] untuk Lanjut', canvas.width / 2, canvas.height - 42);
+    } else {
+      ctx.fillStyle = '#38bdf8';
+      ctx.font = 'bold 20px Courier New';
+      ctx.fillText('SELECT AI BOT DIFFICULTY', canvas.width / 2, 252);
+
+      const diffs = [
+        { key: 'EASY', desc: 'Reaksi lambat (24f), kombo 1-2 hit, jarang bertahan' },
+        { key: 'NORMAL', desc: 'Reaksi sedang (14f), kombo 2-3 hit, blokir & proyektil seimbang' },
+        { key: 'HARD', desc: 'Reaksi kilat (6f), kombo 4-hit penuh, whiff punish, roll & Tag Counter' },
+      ];
+
+      diffs.forEach((d, idx) => {
+        const boxW = 470;
+        const boxH = 54;
+        const boxX = canvas.width / 2 - boxW / 2;
+        const boxY = 275 + idx * 66;
+        const isSelected = difficultyIndex === idx;
+
+        ctx.fillStyle = isSelected ? 'rgba(56, 189, 248, 0.2)' : 'rgba(24, 24, 27, 0.8)';
+        ctx.strokeStyle = isSelected ? '#38bdf8' : '#3f3f46';
+        ctx.lineWidth = isSelected ? 2.5 : 1.5;
+        ctx.fillRect(boxX, boxY, boxW, boxH);
+        ctx.strokeRect(boxX, boxY, boxW, boxH);
+
+        ctx.fillStyle = isSelected ? '#38bdf8' : '#e4e4e7';
+        ctx.font = 'bold 18px Courier New';
+        ctx.fillText(isSelected ? `▶ ${d.key} ◀` : d.key, canvas.width / 2, boxY + 24);
+
+        ctx.fillStyle = '#a1a1aa';
+        ctx.font = '11px Courier New';
+        ctx.fillText(d.desc, canvas.width / 2, boxY + 42);
+      });
+
+      ctx.fillStyle = '#71717a';
+      ctx.font = '13px Courier New';
+      ctx.fillText('[W/S] Pilih Level  •  [ENTER/F] Konfirmasi  •  [ESC] Kembali', canvas.width / 2, canvas.height - 42);
+    }
+
     ctx.restore();
   }
 
-  // 2. LAYAR PEMILIHAN KARAKTER (CHARACTER SELECT SCREEN)
-  static drawCharacterSelect(ctx, canvas, fighters, selectState, gameMode) {
+  static drawCharacterSelect(ctx, canvas, fighters, selectState, gameMode, botDifficulty = 'NORMAL') {
     ctx.save();
     ctx.fillStyle = '#070709';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    // Header
     ctx.textAlign = 'center';
     ctx.fillStyle = '#facc15';
-    ctx.font = 'italic bold 32px Courier New';
-    ctx.fillText('CHOOSE YOUR FIGHTER', canvas.width / 2, 54);
+    ctx.font = 'italic bold 28px Courier New';
+    ctx.fillText('SELECT YOUR TAG TEAM (10 LEGENDS)', canvas.width / 2, 42);
 
     ctx.fillStyle = '#a1a1aa';
-    ctx.font = '13px Courier New';
-    ctx.fillText(
-      gameMode === '1P'
-        ? 'MODE: 1P ARCADE  |  P1 Pilih & Kunci [F], lalu Pilih Lawan AI & Kunci [F/K]'
-        : 'MODE: 2P VERSUS  |  P1: [A/D] + [F] Kunci   •   P2: [←/→] + [K] Kunci',
-      canvas.width / 2,
-      80
+    ctx.font = '12px Courier New';
+    const subPrompt =
+      gameMode === 'TRAINING'
+        ? 'TRAINING: Pilih 2 Tim Anda dengan [A/D] + [F], lalu 2 Tim Dummy dengan [A/D] + [F/K]'
+        : gameMode === '1P'
+          ? `1P (${botDifficulty}): [A/D] + [F] Pilih Main & Partner  •  Lalu pilih Tim AI dengan [A/D] + [F/K]`
+          : 'P1: [A/D] + [F] Pilih 2 Petarung  •  P2: [←/→] + [K] Pilih 2 Petarung';
+    ctx.fillText(subPrompt, canvas.width / 2, 64);
+
+    const p1Main = fighters[selectState.p1Index];
+    const p1Partner = selectState.p1Team.length > 1 ? fighters[selectState.p1Team[1]] : null;
+    const p2Main = fighters[selectState.p2Index];
+    const p2Partner = selectState.p2Team.length > 1 ? fighters[selectState.p2Team[1]] : null;
+
+    this.drawTeamPreviewCard(
+      ctx, 40, 82, 310, 290,
+      p1Main, p1Partner,
+      'PLAYER 1 TEAM',
+      selectState.p1Team.length,
+      1
     );
 
-    const p1Data = fighters[selectState.p1Index];
-    const p2Data = fighters[selectState.p2Index];
+    const rightTitle =
+      gameMode === 'TRAINING'
+        ? 'TRAINING DUMMY TEAM'
+        : gameMode === '1P'
+          ? `CPU / AI [${botDifficulty}]`
+          : 'PLAYER 2 TEAM';
 
-    // Panel Preview P1 (Kiri) & P2 (Kanan)
-    this.drawFighterPreviewCard(ctx, 40, 105, 290, 275, p1Data, 'PLAYER 1', selectState.p1Locked, 1);
-    this.drawFighterPreviewCard(
-      ctx,
-      canvas.width - 330,
-      105,
-      290,
-      275,
-      p2Data,
-      gameMode === '1P' ? 'CPU / AI OPPONENT' : 'PLAYER 2',
-      selectState.p2Locked,
+    this.drawTeamPreviewCard(
+      ctx, canvas.width - 350, 82, 310, 290,
+      p2Main, p2Partner,
+      rightTitle,
+      selectState.p2Team.length,
       -1
     );
 
-    // Teks VS di tengah
     ctx.fillStyle = '#ef4444';
     ctx.shadowColor = '#dc2626';
     ctx.shadowBlur = 18;
-    ctx.font = 'italic bold 48px Courier New';
-    ctx.fillText('VS', canvas.width / 2, 245);
+    ctx.font = 'italic bold 46px Courier New';
+    ctx.fillText('VS', canvas.width / 2, 232);
     ctx.shadowBlur = 0;
 
-    // Grid Kartu Roster di Bagian Bawah
-    const cardW = 195;
-    const cardH = 105;
-    const gap = 22;
-    const totalW = fighters.length * cardW + (fighters.length - 1) * gap;
+    // Grid Roster 5 Kolom x 2 Baris (10 Karakter)
+    const cols = 5;
+    const cardW = 176;
+    const cardH = 68;
+    const gapX = 14;
+    const gapY = 10;
+    const totalW = cols * cardW + (cols - 1) * gapX;
     const startX = (canvas.width - totalW) / 2;
-    const startY = 410;
+    const startY = 390;
 
     fighters.forEach((f, idx) => {
-      const cx = startX + idx * (cardW + gap);
-      const isP1 = selectState.p1Index === idx;
-      const isP2 = selectState.p2Index === idx;
+      const col = idx % cols;
+      const row = Math.floor(idx / cols);
+      const cx = startX + col * (cardW + gapX);
+      const cy = startY + row * (cardH + gapY);
+      const isP1Cursor = selectState.p1Index === idx;
+      const isP2Cursor = selectState.p2Index === idx;
+      const p1Slot = selectState.p1Team.indexOf(idx);
+      const p2Slot = selectState.p2Team.indexOf(idx);
 
       ctx.fillStyle = '#121216';
-      ctx.fillRect(cx, startY, cardW, cardH);
+      ctx.fillRect(cx, cy, cardW, cardH);
 
-      // Bingkai seleksi P1 (Kuning) / P2 (Oranye/Merah)
-      ctx.lineWidth = isP1 || isP2 ? 3 : 1.5;
-      ctx.strokeStyle = isP1 && isP2 ? '#38bdf8' : isP1 ? '#facc15' : isP2 ? '#ef4444' : '#27272a';
-      ctx.strokeRect(cx, startY, cardW, cardH);
+      ctx.lineWidth = isP1Cursor || isP2Cursor ? 2.5 : 1.5;
+      ctx.strokeStyle = isP1Cursor && isP2Cursor ? '#38bdf8' : isP1Cursor ? '#facc15' : isP2Cursor ? '#ef4444' : '#27272a';
+      ctx.strokeRect(cx, cy, cardW, cardH);
 
-      // Badge P1 / P2 di sudut kartu
-      ctx.font = 'bold 11px Courier New';
-      if (isP1) {
-        ctx.fillStyle = '#facc15';
+      ctx.font = 'bold 9px Courier New';
+      if (p1Slot !== -1 || isP1Cursor) {
+        ctx.fillStyle = p1Slot !== -1 ? '#4ade80' : '#facc15';
         ctx.textAlign = 'left';
-        ctx.fillText(selectState.p1Locked ? 'P1 READY' : 'P1', cx + 8, startY + 16);
+        const label = p1Slot === 0 ? 'P1 MAIN✓' : p1Slot === 1 ? 'P1 SUB✓' : 'P1';
+        ctx.fillText(label, cx + 6, cy + 13);
       }
-      if (isP2) {
-        ctx.fillStyle = '#ef4444';
+      if (p2Slot !== -1 || isP2Cursor) {
+        ctx.fillStyle = p2Slot !== -1 ? '#4ade80' : '#ef4444';
         ctx.textAlign = 'right';
-        ctx.fillText(selectState.p2Locked ? 'P2 READY' : 'P2', cx + cardW - 8, startY + 16);
+        const label = p2Slot === 0 ? 'P2 MAIN✓' : p2Slot === 1 ? 'P2 SUB✓' : 'P2';
+        ctx.fillText(label, cx + cardW - 6, cy + 13);
       }
 
-      // Nama & Fraksi
       ctx.textAlign = 'center';
       ctx.fillStyle = f.visuals.rimColor;
-      ctx.font = 'bold 13px Courier New';
-      ctx.fillText(f.name.split(' ').slice(-1)[0].toUpperCase(), cx + cardW / 2, startY + 46);
+      ctx.font = 'bold 12px Courier New';
+      ctx.fillText(f.name.toUpperCase(), cx + cardW / 2, cy + 36);
 
       ctx.fillStyle = '#a1a1aa';
-      ctx.font = '10px Courier New';
-      ctx.fillText(f.faction, cx + cardW / 2, startY + 64);
-
-      ctx.fillStyle = '#71717a';
-      ctx.fillText(`[${f.archetype.toUpperCase()}]`, cx + cardW / 2, startY + 84);
+      ctx.font = '9px Courier New';
+      ctx.fillText(f.archetype, cx + cardW / 2, cy + 54);
     });
 
     ctx.fillStyle = '#71717a';
     ctx.font = '12px Courier New';
     ctx.textAlign = 'center';
-    ctx.fillText('Tekan [ESC] untuk kembali ke Title Screen', canvas.width / 2, canvas.height - 18);
+    ctx.fillText('[ESC] Kembali ke Title Screen  •  Setiap tim wajib memilih 2 petarung berbeda', canvas.width / 2, canvas.height - 14);
     ctx.restore();
   }
 
-  static drawFighterPreviewCard(ctx, x, y, w, h, fighterData, roleLabel, isLocked, facing) {
+  static drawTeamPreviewCard(ctx, x, y, w, h, activeData, partnerData, roleLabel, lockedCount, facing) {
     ctx.save();
-    ctx.fillStyle = isLocked ? 'rgba(220, 38, 38, 0.14)' : '#121216';
-    ctx.strokeStyle = isLocked ? '#22c55e' : fighterData.visuals.rimColor;
+    const isTeamReady = lockedCount === 2;
+    ctx.fillStyle = isTeamReady ? 'rgba(34, 197, 94, 0.1)' : '#121216';
+    ctx.strokeStyle = isTeamReady ? '#22c55e' : activeData.visuals.rimColor;
     ctx.lineWidth = 2;
     ctx.fillRect(x, y, w, h);
     ctx.strokeRect(x, y, w, h);
 
-    // Label Player & Status Locked
     ctx.font = 'bold 12px Courier New';
     ctx.textAlign = 'left';
-    ctx.fillStyle = isLocked ? '#4ade80' : '#a1a1aa';
-    ctx.fillText(isLocked ? `${roleLabel} — LOCKED ✓` : roleLabel, x + 12, y + 20);
+    ctx.fillStyle = isTeamReady ? '#4ade80' : '#facc15';
+    const statusText = lockedCount === 0 ? 'PILIH MAIN [1/2]' : lockedCount === 1 ? 'PILIH PARTNER [2/2]' : 'TEAM READY ✓';
+    ctx.fillText(`${roleLabel} • ${statusText}`, x + 12, y + 20);
 
-    // Render Preview Stickman Hidup di dalam Kotak Preview
-    const dummyFighter = {
-      x: x + w / 2 - 25,
+    const dummyMain = {
+      id: activeData.id,
+      x: x + w / 2 - 25 - (partnerData ? 26 * facing : 0),
       y: y + 48,
       width: 50,
       height: 145,
       facing,
       state: 'idle',
-      visuals: fighterData.visuals,
+      visuals: activeData.visuals,
+      skills: activeData.skills,
       attackFrame: 0,
       xrayTimer: 0,
       afterimages: [],
@@ -205,85 +250,93 @@ export class ScreenUI {
       vx: 0,
       walkPhase: 0,
       comboStep: 0,
+      comboChain: [],
+      weaponMode: 'saber',
+      mountTimer: 0,
     };
-    StickmanRenderer.draw(ctx, dummyFighter, y + 193);
+    StickmanRenderer.draw(ctx, dummyMain, y + 193);
 
-    // Nama Lengkap & Statistik Bar
+    if (partnerData) {
+      ctx.save();
+      ctx.globalAlpha = 0.78;
+      const dummyPartner = {
+        ...dummyMain,
+        id: partnerData.id,
+        x: x + w / 2 - 25 + 42 * facing,
+        y: y + 42,
+        visuals: partnerData.visuals,
+        skills: partnerData.skills,
+      };
+      StickmanRenderer.draw(ctx, dummyPartner, y + 187);
+      ctx.restore();
+    }
+
     ctx.textAlign = 'center';
     ctx.fillStyle = '#f4f4f5';
-    ctx.font = 'bold 14px Courier New';
-    ctx.fillText(fighterData.name.toUpperCase(), x + w / 2, y + 218);
+    ctx.font = 'bold 13px Courier New';
+    ctx.fillText(`MAIN: ${activeData.name.toUpperCase()}`, x + w / 2, y + 216);
 
-    ctx.fillStyle = fighterData.visuals.rimColor;
-    ctx.font = '11px Courier New';
-    ctx.fillText(`Jurus: ${fighterData.specialMove.name}`, x + w / 2, y + 236);
+    ctx.fillStyle = partnerData ? partnerData.visuals.rimColor : '#71717a';
+    ctx.font = 'bold 12px Courier New';
+    ctx.fillText(
+      partnerData ? `PARTNER: ${partnerData.name.toUpperCase()}` : 'PARTNER: (Belum Dipilih)',
+      x + w / 2,
+      y + 236
+    );
 
-    // Bar Speed & Power ringkas
-    ctx.textAlign = 'left';
     ctx.fillStyle = '#a1a1aa';
     ctx.font = '10px Courier New';
-    ctx.fillText('SPD', x + 16, y + 256);
-    ctx.fillStyle = '#27272a';
-    ctx.fillRect(x + 42, y + 248, 85, 7);
-    ctx.fillStyle = '#38bdf8';
-    ctx.fillRect(x + 42, y + 248, (fighterData.stats.speed / 10) * 85, 7);
-
-    ctx.fillStyle = '#a1a1aa';
-    ctx.fillText('PWR', x + 145, y + 256);
-    ctx.fillStyle = '#27272a';
-    ctx.fillRect(x + 170, y + 248, 95, 7);
-    ctx.fillStyle = '#ef4444';
-    ctx.fillRect(x + 170, y + 248, (fighterData.stats.power / 100) * 95, 7);
-
+    ctx.fillText(`S1: ${activeData.skills.skill1.name}  |  S2: ${activeData.skills.skill2.name}`, x + w / 2, y + 258);
     ctx.restore();
   }
 
-  // 3. OVERLAY DAFTAR JURUS & KONTROL ([TAB])
   static drawMoveListOverlay(ctx, canvas, p1, p2) {
     ctx.save();
-    ctx.fillStyle = 'rgba(5, 5, 8, 0.88)';
-    ctx.fillRect(90, 95, canvas.width - 180, canvas.height - 190);
+    ctx.fillStyle = 'rgba(5, 5, 8, 0.92)';
+    ctx.fillRect(75, 58, canvas.width - 150, canvas.height - 116);
     ctx.strokeStyle = '#facc15';
     ctx.lineWidth = 2;
-    ctx.strokeRect(90, 95, canvas.width - 180, canvas.height - 190);
+    ctx.strokeRect(75, 58, canvas.width - 150, canvas.height - 116);
 
     ctx.textAlign = 'center';
     ctx.fillStyle = '#facc15';
-    ctx.font = 'bold 24px Courier New';
-    ctx.fillText('COMMAND & MOVE LIST (PAUSED)', canvas.width / 2, 135);
+    ctx.font = 'bold 23px Courier New';
+    ctx.fillText('TAG-TEAM COMMAND & MOVE LIST (PAUSED)', canvas.width / 2, 94);
 
     const rows = [
       ['Gerak & Lompat', 'W / A / D', '↑ / ← / →'],
       ['Bertahan (Block)', 'Tahan S', 'Tahan ↓'],
-      ['Dash / Roll Kebal', 'Q / E', 'M / ,'],
-      ['4-Hit Basic Combo', 'F (Tekan 4x)', 'K (Tekan 4x)'],
-      ['High Kick', 'R', '. (Titik)'],
-      ['Skill 1 (Proyektil)', `G (${p1.specialMove.name})`, `L (${p2.specialMove.name})`],
-      ['Skill 2 (Area Burst)', 'T (Overload)', '/ (Slash Burst)'],
+      ['Quick Dash / Evasive Roll', 'Q (Dash) / X (Roll)', 'M (Dash) / N (Roll)'],
+      ['SWITCH CHARACTER (Tag-In)', 'E (Ganti Partner)', ', (Koma - Ganti Partner)'],
+      ['TAG COUNTER (Saat Block, 1 Bar)', 'Tahan S + E (100 Meter)', 'Tahan ↓ + , (100 Meter)'],
+      ['4-Hit Mixup Combo', 'F (Punch) + R (Kick)', 'K (Punch) + . (Kick)'],
+      ['Skill 1 (Signature 1)', `G (${p1.skills.skill1.name})`, `L (${p2.skills.skill1.name})`],
+      ['Skill 2 (Signature 2)', `T (${p1.skills.skill2.name})`, `/ (${p2.skills.skill2.name})`],
     ];
 
     ctx.font = 'bold 13px Courier New';
     ctx.fillStyle = '#a1a1aa';
-    ctx.fillText('AKSI', 240, 172);
+    ctx.fillText('AKSI', 235, 130);
     ctx.fillStyle = '#facc15';
-    ctx.fillText('PLAYER 1', 512, 172);
+    ctx.fillText('PLAYER 1', 515, 130);
     ctx.fillStyle = '#f97316';
-    ctx.fillText('PLAYER 2', 775, 172);
+    ctx.fillText('PLAYER 2', 780, 130);
 
     rows.forEach((r, i) => {
-      const ry = 205 + i * 32;
-      ctx.fillStyle = '#e4e4e7';
-      ctx.font = '13px Courier New';
-      ctx.fillText(r[0], 240, ry);
+      const ry = 160 + i * 31;
+      const isHighlight = i === 3 || i === 4;
+      ctx.fillStyle = isHighlight ? '#38bdf8' : '#e4e4e7';
+      ctx.font = isHighlight ? 'bold 13px Courier New' : '13px Courier New';
+      ctx.fillText(r[0], 235, ry);
       ctx.fillStyle = '#fef08a';
-      ctx.fillText(r[1], 512, ry);
+      ctx.fillText(r[1], 515, ry);
       ctx.fillStyle = '#fdba74';
-      ctx.fillText(r[2], 775, ry);
+      ctx.fillText(r[2], 780, ry);
     });
 
     ctx.fillStyle = '#71717a';
     ctx.font = '12px Courier New';
-    ctx.fillText('Tekan [TAB] untuk Lanjut Bertarung  •  Tekan [ESC] untuk Ganti Karakter', canvas.width / 2, canvas.height - 115);
+    ctx.fillText('[F1] Hitbox Viewer  •  Training: [F2] Reset HP/Posisi, [F3] Mode Dummy  •  [TAB] Tutup', canvas.width / 2, canvas.height - 76);
     ctx.restore();
   }
 }

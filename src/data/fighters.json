@@ -2,73 +2,704 @@
   {
     "id": "edison",
     "name": "Thomas Alva Edison",
-    "era": "Menlo Park Youth (29)",
+    "era": "1847–1931 • Menlo Park",
     "faction": "Pioneers of Science",
-    "archetype": "zoner",
-    "stats": { "hp": 1000, "speed": 5, "power": 85 },
+    "archetype": "Tactical Zoner",
+    "stats": {
+      "hp": 960,
+      "speed": 6.5,
+      "power": 82,
+      "reachBonus": 0
+    },
     "visuals": {
       "rimColor": "#facc15",
-      "hairStyle": "parted_goggles",
-      "weapon": "tesla_bulb"
+      "weapon": "dc_dagger",
+      "weaponName": "DC Voltage Dagger",
+      "hairStyle": "parted_goggles"
     },
-    "specialMove": {
-      "name": "Menlo Voltage",
-      "input": ["Down", "Forward", "Attack1"],
-      "damage": 120
-    }
-  },
-  {
-    "id": "kishimoto",
-    "name": "Masashi Kishimoto",
-    "era": "90s Rookie Mangaka (24)",
-    "faction": "Modern Creators",
-    "archetype": "rushdown",
-    "stats": { "hp": 950, "speed": 7, "power": 80 },
-    "visuals": {
-      "rimColor": "#f97316",
-      "hairStyle": "spiky_headband",
-      "weapon": "giant_gpen"
+    "skills": {
+      "skill1": {
+        "name": "Menlo Voltage Orb",
+        "cooldown": 180,
+        "totalFrames": 15,
+        "movement": [],
+        "hitboxes": [],
+        "projectile": {
+          "width": 38,
+          "height": 28,
+          "speed": 13,
+          "damage": 120,
+          "gravity": 0
+        },
+        "vfx": "electric_orb",
+        "modifiers": []
+      },
+      "skill2": {
+        "name": "PHYSICS DAGGER BLITZ!",
+        "cooldown": 280,
+        "totalFrames": 24,
+        "movement": [
+          { "from": 4, "to": 14, "vx": 13, "vy": null, "afterimage": true, "friction": 0.7 }
+        ],
+        "hitboxes": [
+          {
+            "hitId": "edison_s2_1",
+            "from": 5,
+            "to": 15,
+            "offsetX": -5,
+            "offsetY": 20,
+            "width": 95,
+            "height": 95,
+            "damage": 155,
+            "knockback": 18,
+            "launchY": -7,
+            "stun": 35,
+            "isXray": true
+          }
+        ],
+        "vfx": "dagger_blitz",
+        "modifiers": []
+      }
     },
-    "specialMove": {
-      "name": "Ink Shadow Slash",
-      "input": ["Down", "Forward", "Attack1"],
-      "damage": 110
-    }
+    "bio": "Bapak penemu modern dengan 1.093 paten; bertarung menggunakan belati fisika tegangan DC."
   },
   {
     "id": "tesla",
     "name": "Nikola Tesla",
-    "era": "New York Arrival (28)",
+    "era": "1856–1943 • Smiljan",
     "faction": "Pioneers of Science",
-    "archetype": "speedster",
-    "stats": { "hp": 920, "speed": 8, "power": 82 },
+    "archetype": "Lightning Duelist",
+    "stats": {
+      "hp": 930,
+      "speed": 7.2,
+      "power": 84,
+      "reachBonus": 22
+    },
     "visuals": {
       "rimColor": "#38bdf8",
-      "hairStyle": "sleek_side",
-      "weapon": "ac_gauntlet"
+      "weapon": "ac_lightning_sword",
+      "weaponName": "AC Lightning Plasma Sword",
+      "hairStyle": "sleek_side"
     },
-    "specialMove": {
-      "name": "Alternating Arc",
-      "input": ["Down", "Forward", "Attack1"],
-      "damage": 115
-    }
+    "skills": {
+      "skill1": {
+        "name": "Alternating Arc",
+        "cooldown": 180,
+        "totalFrames": 15,
+        "movement": [],
+        "hitboxes": [],
+        "projectile": {
+          "width": 38,
+          "height": 28,
+          "speed": 13,
+          "damage": 130,
+          "gravity": 0
+        },
+        "vfx": "electric_orb",
+        "modifiers": []
+      },
+      "skill2": {
+        "name": "LIGHTNING SLASH STUN!",
+        "cooldown": 280,
+        "totalFrames": 24,
+        "movement": [
+          { "from": 0, "to": 24, "vx": null, "vy": null, "afterimage": false, "friction": 0.75 }
+        ],
+        "hitboxes": [
+          {
+            "hitId": "tesla_s2_1",
+            "from": 6,
+            "to": 16,
+            "offsetX": -10,
+            "offsetY": 10,
+            "width": 135,
+            "height": 115,
+            "damage": 140,
+            "knockback": 8,
+            "launchY": 0,
+            "stun": 95,
+            "isXray": true
+          }
+        ],
+        "vfx": "lightning_slash",
+        "modifiers": []
+      }
+    },
+    "bio": "Visioner arus bolak-balik (AC) dengan pedang plasma petir jarak menengah dan tebasan pelumpuh."
+  },
+  {
+    "id": "kishimoto",
+    "name": "Masashi Kishimoto",
+    "era": "1974–Present • Okayama",
+    "faction": "Creators & Masters",
+    "archetype": "Agile Trickster",
+    "stats": {
+      "hp": 940,
+      "speed": 7.8,
+      "power": 80,
+      "reachBonus": 12
+    },
+    "visuals": {
+      "rimColor": "#f97316",
+      "weapon": "ink_scroll_pen",
+      "weaponName": "Ink Manga Scroll & Giant G-Pen",
+      "hairStyle": "spiky_hair"
+    },
+    "skills": {
+      "skill1": {
+        "name": "Ink Shadow Slash",
+        "cooldown": 180,
+        "totalFrames": 15,
+        "movement": [],
+        "hitboxes": [],
+        "projectile": {
+          "width": 38,
+          "height": 28,
+          "speed": 13,
+          "damage": 115,
+          "gravity": 0
+        },
+        "vfx": "ink_slash_orb",
+        "modifiers": []
+      },
+      "skill2": {
+        "name": "SPIRAL WIND ORB!",
+        "cooldown": 280,
+        "totalFrames": 24,
+        "movement": [
+          { "from": 9, "to": 18, "vx": 15, "vy": null, "afterimage": true, "friction": 0.6 }
+        ],
+        "hitboxes": [
+          {
+            "hitId": "kishimoto_s2_1",
+            "from": 9,
+            "to": 19,
+            "offsetX": -5,
+            "offsetY": 15,
+            "width": 95,
+            "height": 105,
+            "damage": 165,
+            "knockback": 24,
+            "launchY": -10,
+            "stun": 60,
+            "isXray": true
+          }
+        ],
+        "vfx": "spiral_wind_orb",
+        "modifiers": []
+      }
+    },
+    "bio": "Mangaka legendaris yang bertarung menggunakan Gulungan Tinta Manga, Pena G-Pen Raksasa, dan pusaran angin."
   },
   {
     "id": "bruce_lee",
     "name": "Bruce Lee",
-    "era": "Wing Chun Hong Kong (21)",
-    "faction": "Legendary Warriors",
-    "archetype": "brawler",
-    "stats": { "hp": 980, "speed": 9, "power": 90 },
+    "era": "1940–1973 • Hong Kong",
+    "faction": "Fists of Legend",
+    "archetype": "Rushdown Striker",
+    "stats": {
+      "hp": 950,
+      "speed": 8.6,
+      "power": 88,
+      "reachBonus": 0
+    },
     "visuals": {
       "rimColor": "#ef4444",
-      "hairStyle": "wingchun_classic",
-      "weapon": "nunchaku"
+      "weapon": "crimson_nunchaku",
+      "weaponName": "Crimson Jeet Kune Do Nunchaku",
+      "hairStyle": "wingchun_classic"
     },
-    "specialMove": {
-      "name": "One-Inch Dragon",
-      "input": ["Down", "Forward", "Attack1"],
-      "damage": 135
-    }
+    "skills": {
+      "skill1": {
+        "name": "One-Inch Dragon",
+        "cooldown": 180,
+        "totalFrames": 15,
+        "movement": [],
+        "hitboxes": [],
+        "projectile": {
+          "width": 38,
+          "height": 28,
+          "speed": 13,
+          "damage": 125,
+          "gravity": 0
+        },
+        "vfx": "dragon_wave_orb",
+        "modifiers": []
+      },
+      "skill2": {
+        "name": "DRAGON STUN KICK!",
+        "cooldown": 280,
+        "totalFrames": 24,
+        "movement": [
+          { "from": 4, "to": 4, "vx": 14, "vy": -8, "afterimage": true, "friction": 1.0 },
+          { "from": 5, "to": 14, "vx": null, "vy": null, "afterimage": true, "friction": 1.0 }
+        ],
+        "hitboxes": [
+          {
+            "hitId": "bruce_lee_s2_1",
+            "from": 5,
+            "to": 15,
+            "offsetX": -5,
+            "offsetY": 25,
+            "width": 90,
+            "height": 75,
+            "damage": 145,
+            "knockback": 10,
+            "launchY": -3,
+            "stun": 95,
+            "isXray": true
+          }
+        ],
+        "vfx": "dragon_kick_arc",
+        "modifiers": []
+      }
+    },
+    "bio": "Pendiri Jeet Kune Do dengan kombo nunchaku kilat dan tendangan terbang pelumpuh."
+  },
+  {
+    "id": "muhammad_ali",
+    "name": "Muhammad Ali",
+    "era": "1942–2016 • Louisville",
+    "faction": "Fists of Legend",
+    "archetype": "Critical Boxer",
+    "stats": {
+      "hp": 960,
+      "speed": 8.4,
+      "power": 86,
+      "reachBonus": 4
+    },
+    "visuals": {
+      "rimColor": "#dc2626",
+      "weapon": "red_boxing_gloves",
+      "weaponName": "Crimson Heavyweight Gloves",
+      "hairStyle": "ali_crop"
+    },
+    "skills": {
+      "skill1": {
+        "name": "Critical Punch",
+        "cooldown": 170,
+        "totalFrames": 18,
+        "movement": [
+          { "from": 2, "to": 8, "vx": 14, "vy": null, "afterimage": true, "friction": 0.7 }
+        ],
+        "hitboxes": [
+          {
+            "hitId": "ali_s1_crit",
+            "from": 6,
+            "to": 13,
+            "offsetX": -4,
+            "offsetY": 24,
+            "width": 78,
+            "height": 42,
+            "damage": 125,
+            "knockback": 15,
+            "launchY": -4,
+            "stun": 0,
+            "isXray": true
+          }
+        ],
+        "vfx": "critical_punch_flash",
+        "modifiers": []
+      },
+      "skill2": {
+        "name": "DOUBLE CRITICAL PUNCH!",
+        "cooldown": 280,
+        "totalFrames": 26,
+        "movement": [
+          { "from": 3, "to": 9, "vx": 11, "vy": null, "afterimage": true, "friction": 0.7 },
+          { "from": 12, "to": 18, "vx": 13, "vy": null, "afterimage": true, "friction": 0.65 }
+        ],
+        "hitboxes": [
+          {
+            "hitId": "ali_s2_crit1",
+            "from": 4,
+            "to": 9,
+            "offsetX": -4,
+            "offsetY": 26,
+            "width": 80,
+            "height": 44,
+            "damage": 75,
+            "knockback": 6,
+            "launchY": 0,
+            "stun": 20,
+            "isXray": false
+          },
+          {
+            "hitId": "ali_s2_crit2",
+            "from": 13,
+            "to": 20,
+            "offsetX": -4,
+            "offsetY": 20,
+            "width": 88,
+            "height": 50,
+            "damage": 90,
+            "knockback": 22,
+            "launchY": -9,
+            "stun": 35,
+            "isXray": true
+          }
+        ],
+        "vfx": "double_critical_punch",
+        "modifiers": []
+      }
+    },
+    "bio": "Legenda tinju dunia dengan sarung tinju merah ikonik dan pukulan kritikal ganda penghancur pertahanan."
+  },
+  {
+    "id": "sasaki_kojiro",
+    "name": "Sasaki Kojiro",
+    "era": "1575–1612 • Ganryujima",
+    "faction": "Blades & Warriors",
+    "archetype": "Twin-Katana Tempest",
+    "stats": {
+      "hp": 940,
+      "speed": 7.1,
+      "power": 85,
+      "reachBonus": 30
+    },
+    "visuals": {
+      "rimColor": "#a855f7",
+      "weapon": "dual_long_katana",
+      "weaponName": "Dual Long Katana",
+      "hairStyle": "kojiro_ponytail"
+    },
+    "skills": {
+      "skill1": {
+        "name": "Tempest Tornado",
+        "cooldown": 210,
+        "totalFrames": 20,
+        "movement": [],
+        "hitboxes": [],
+        "projectile": {
+          "width": 54,
+          "height": 88,
+          "speed": 11,
+          "damage": 105,
+          "gravity": 0,
+          "stun": 65
+        },
+        "vfx": "typhoon_tornado",
+        "modifiers": []
+      },
+      "skill2": {
+        "name": "DOUBLE SLASH SWORD!",
+        "cooldown": 285,
+        "totalFrames": 28,
+        "movement": [
+          { "from": 4, "to": 10, "vx": 10, "vy": null, "afterimage": true, "friction": 0.72 },
+          { "from": 14, "to": 20, "vx": 9, "vy": null, "afterimage": true, "friction": 0.7 }
+        ],
+        "hitboxes": [
+          {
+            "hitId": "kojiro_s2_slash1",
+            "from": 5,
+            "to": 10,
+            "offsetX": -8,
+            "offsetY": 16,
+            "width": 128,
+            "height": 95,
+            "damage": 80,
+            "knockback": 5,
+            "launchY": -9,
+            "stun": 20,
+            "isXray": false
+          },
+          {
+            "hitId": "kojiro_s2_slash2",
+            "from": 15,
+            "to": 22,
+            "offsetX": -8,
+            "offsetY": 14,
+            "width": 134,
+            "height": 100,
+            "damage": 85,
+            "knockback": 19,
+            "launchY": 7,
+            "stun": 30,
+            "isXray": true
+          }
+        ],
+        "vfx": "dual_katana_cross",
+        "modifiers": []
+      }
+    },
+    "bio": "Pendekar pedang ganda berbilah panjang yang memanggil angin topan pelumpuh dan tebasan silang dua arah."
+  },
+  {
+    "id": "okita_soji",
+    "name": "Okita Souji",
+    "era": "1842–1868 • Edo",
+    "faction": "Blades & Warriors",
+    "archetype": "Demon-Blade Striker",
+    "stats": {
+      "hp": 900,
+      "speed": 8.8,
+      "power": 83,
+      "reachBonus": 14
+    },
+    "visuals": {
+      "rimColor": "#e11d48",
+      "weapon": "demon_mid_katana",
+      "weaponName": "Demon Aura Mid-Katana",
+      "hairStyle": "okita_ponytail"
+    },
+    "skills": {
+      "skill1": {
+        "name": "Cut Slash Demon",
+        "cooldown": 170,
+        "totalFrames": 20,
+        "movement": [
+          { "from": 3, "to": 11, "vx": 16, "vy": null, "afterimage": true, "friction": 0.65 }
+        ],
+        "hitboxes": [
+          {
+            "hitId": "okita_s1_demon_cut",
+            "from": 4,
+            "to": 12,
+            "offsetX": -4,
+            "offsetY": 20,
+            "width": 98,
+            "height": 64,
+            "damage": 120,
+            "knockback": 13,
+            "launchY": -3,
+            "stun": 0,
+            "isXray": false
+          }
+        ],
+        "vfx": "demon_cut_slash",
+        "modifiers": []
+      },
+      "skill2": {
+        "name": "FLYING DEMON SLASH!",
+        "cooldown": 280,
+        "totalFrames": 26,
+        "movement": [
+          { "from": 3, "to": 3, "vx": 15, "vy": -11, "afterimage": true, "friction": 1.0 },
+          { "from": 4, "to": 15, "vx": 13, "vy": 2.5, "afterimage": true, "friction": 0.85 }
+        ],
+        "hitboxes": [
+          {
+            "hitId": "okita_s2_fly1",
+            "from": 5,
+            "to": 10,
+            "offsetX": -4,
+            "offsetY": 16,
+            "width": 105,
+            "height": 76,
+            "damage": 75,
+            "knockback": 8,
+            "launchY": -6,
+            "stun": 20,
+            "isXray": false
+          },
+          {
+            "hitId": "okita_s2_fly2",
+            "from": 11,
+            "to": 17,
+            "offsetX": -4,
+            "offsetY": 22,
+            "width": 112,
+            "height": 84,
+            "damage": 85,
+            "knockback": 18,
+            "launchY": 8,
+            "stun": 30,
+            "isXray": true
+          }
+        ],
+        "vfx": "flying_demon_slash",
+        "modifiers": []
+      }
+    },
+    "bio": "Kapten Shinsengumi berkuncir kepala dengan katana menengah beraura iblis merah-hitam yang menebas dari udara."
+  },
+  {
+    "id": "raiden_tameemon",
+    "name": "Raiden Tameemon",
+    "era": "1767–1825 • Shinano",
+    "faction": "Blades & Warriors",
+    "archetype": "Sumo Juggernaut",
+    "stats": {
+      "hp": 1050,
+      "speed": 5.4,
+      "power": 94,
+      "reachBonus": 8
+    },
+    "visuals": {
+      "rimColor": "#f59e0b",
+      "weapon": "sumo_wrist_rings",
+      "weaponName": "Iron Sumo Wrist Rings & Mawashi",
+      "hairStyle": "sumo_topknot"
+    },
+    "skills": {
+      "skill1": {
+        "name": "Shiko Stomp",
+        "cooldown": 195,
+        "totalFrames": 24,
+        "movement": [
+          { "from": 0, "to": 8, "vx": 0, "vy": -5, "afterimage": false, "friction": 0.8 },
+          { "from": 9, "to": 12, "vx": 0, "vy": 12, "afterimage": false, "friction": 0.5 }
+        ],
+        "hitboxes": [
+          {
+            "hitId": "raiden_s1_shiko",
+            "from": 11,
+            "to": 18,
+            "offsetX": -25,
+            "offsetY": 95,
+            "width": 150,
+            "height": 52,
+            "damage": 120,
+            "knockback": 12,
+            "launchY": -10,
+            "stun": 30,
+            "isXray": false
+          }
+        ],
+        "vfx": "shiko_quake",
+        "modifiers": []
+      },
+      "skill2": {
+        "name": "SURIASHI CHARGE!",
+        "cooldown": 300,
+        "totalFrames": 30,
+        "movement": [
+          { "from": 4, "to": 19, "vx": 14, "vy": null, "afterimage": true, "friction": 0.65 }
+        ],
+        "hitboxes": [
+          {
+            "hitId": "raiden_s2_suriashi",
+            "from": 5,
+            "to": 19,
+            "offsetX": -4,
+            "offsetY": 18,
+            "width": 84,
+            "height": 88,
+            "damage": 160,
+            "knockback": 22,
+            "launchY": -10,
+            "stun": 35,
+            "isXray": true
+          }
+        ],
+        "vfx": "suriashi_palm",
+        "modifiers": ["superArmor"]
+      }
+    },
+    "bio": "Legenda sumo dengan gelang besi di kedua pergelangan tangan, hentakan kaki Shiko penggetar tanah, dan luncuran Suriashi."
+  },
+  {
+    "id": "napoleon",
+    "name": "Napoleon Bonaparte",
+    "era": "1769–1821 • Corsica",
+    "faction": "Rulers & Conquerors",
+    "archetype": "Cavalry Duelist",
+    "stats": {
+      "hp": 965,
+      "speed": 6.8,
+      "power": 83,
+      "reachBonus": 22
+    },
+    "visuals": {
+      "rimColor": "#3b82f6",
+      "weapon": "napoleon_saber_epee",
+      "weaponName": "Napoleon Saber & Epée Sword",
+      "hairStyle": "bicorne_hat"
+    },
+    "skills": {
+      "skill1": {
+        "name": "Switch Sword Stance",
+        "cooldown": 150,
+        "totalFrames": 16,
+        "movement": [
+          { "from": 2, "to": 8, "vx": 8, "vy": null, "afterimage": true, "friction": 0.75 }
+        ],
+        "hitboxes": [
+          {
+            "hitId": "napoleon_s1_switch",
+            "from": 4,
+            "to": 11,
+            "offsetX": -4,
+            "offsetY": 24,
+            "width": 96,
+            "height": 54,
+            "damage": 105,
+            "knockback": 11,
+            "launchY": -3,
+            "stun": 0,
+            "isXray": false
+          }
+        ],
+        "vfx": "sword_stance_swap",
+        "modifiers": ["weaponSwitch"]
+      },
+      "skill2": {
+        "name": "IMPERIAL WARHORSE CHARGE!",
+        "cooldown": 360,
+        "totalFrames": 24,
+        "movement": [
+          { "from": 0, "to": 14, "vx": 0, "vy": null, "afterimage": false, "friction": 0.7 }
+        ],
+        "hitboxes": [],
+        "vfx": "cavalry_summon",
+        "modifiers": ["summonMount"]
+      }
+    },
+    "bio": "Kaisar bertopi Bicorne yang berganti gaya antara Saber panjang dan Epée cepat, serta memanggil kuda perang dari belakang lawan selama 4 detik."
+  },
+  {
+    "id": "jack_the_ripper",
+    "name": "Jack the Ripper",
+    "era": "1888 • Whitechapel",
+    "faction": "Myth & Shadows",
+    "archetype": "Victorian Steampunk Assassin",
+    "stats": {
+      "hp": 900,
+      "speed": 9.0,
+      "power": 79,
+      "reachBonus": 4
+    },
+    "visuals": {
+      "rimColor": "#10b981",
+      "weapon": "divine_steampunk_knives",
+      "weaponName": "Divine Gauntlet & Steampunk Knives",
+      "hairStyle": "victorian_tophat_monocle"
+    },
+    "skills": {
+      "skill1": {
+        "name": "Single Ripper Throw",
+        "cooldown": 150,
+        "totalFrames": 14,
+        "movement": [],
+        "hitboxes": [],
+        "projectile": {
+          "width": 34,
+          "height": 14,
+          "speed": 17,
+          "damage": 90,
+          "gravity": 0
+        },
+        "vfx": "steampunk_knife_single",
+        "modifiers": []
+      },
+      "skill2": {
+        "name": "DIVINE GAUNTLET: TRIPLE BLADES!",
+        "cooldown": 270,
+        "totalFrames": 22,
+        "movement": [
+          { "from": 0, "to": 10, "vx": -3, "vy": null, "afterimage": true, "friction": 0.7 }
+        ],
+        "hitboxes": [],
+        "multiProjectiles": [
+          { "delayFrame": 5, "offsetY": 24, "width": 34, "height": 14, "speed": 16, "vy": -1.2, "gravity": 0.03, "damage": 50 },
+          { "delayFrame": 8, "offsetY": 46, "width": 36, "height": 14, "speed": 17.5, "vy": 0, "gravity": 0, "damage": 50 },
+          { "delayFrame": 11, "offsetY": 68, "width": 34, "height": 14, "speed": 16, "vy": 1.1, "gravity": 0, "damage": 50 }
+        ],
+        "vfx": "divine_gauntlet_summon",
+        "modifiers": []
+      }
+    },
+    "bio": "Bangsawan era Victoria berbalut perlengkapan Steampunk dan Sarung Tangan Ilahi pemanggil hujan 3 bilah pisau."
   }
 ]

@@ -1,90 +1,233 @@
+import { BALANCE } from '../data/balance.js';
+
 export class BotAI {
   constructor() {
+    this.difficulty = 'NORMAL';
+    this.config = BALANCE.BOT_DIFFICULTY.NORMAL;
     this.decisionTimer = 0;
-    this.intent = 'idle'; // approach, retreat, block, idle
+    this.currentAction = 'idle';
+    this.moveDir = 0;
+
+    // Antrean reaksi berbasis reactionDelay
+    this.pendingReaction = null;
+    this.reactionCountdown = 0;
+    this.lastOpponentState = 'idle';
   }
 
-  update(bot, player, groundY, onCastSpecial, onCastSkill2, onDash, onRoll) {
-    if (bot.state === 'ko' || player.state === 'ko') return;
+  setDifficulty(level) {
+    const key = BALANCE.BOT_DIFFICULTY[level] ? level : 'NORMAL';
+    this.difficulty = key;
+    this.config = BALANCE.BOT_DIFFICULTY[key];
+    this.resetState();
+  }
 
-    const dx = player.x - bot.x;
-    const dist = Math.abs(dx);
-    const dirToPlayer = dx >= 0 ? 1 : -1;
-    const busyStates = ['attack', 'kick', 'special', 'skill2', 'dash', 'roll'];
+  resetState() {
+    this.decisionTimer = 0;
+    this.currentAction = 'idle';
+    this.moveDir = 0;
+    this.pendingReaction = null;
+    this.reactionCountdown = 0;
+    this.lastOpponentState = 'idle';
+  }
 
-    this.decisionTimer--;
+  detectThreat(bot, opponent, projectiles, dist) {
+    // 1. Cek proyektil musuh yang mengarah ke bot
+    for (const proj of projectiles) {
+      if (proj.ownerSide === 2) continue;
+      const dx = bot.x + bot.width / 2 - (proj.x + proj.width / 2);
+      const movingTowardBot = (dx > 0 && proj.vx > 0) || (dx < 0 && proj.vx < 0);
+      if (movingTowardBot && Math.abs(dx) < 240) {
+        return { type: 'projectile', distance: Math.abs(dx) };
+      }
+    }
 
-    // Reaksi cepat jika pemain menembakkan jurus atau menyerang jarak dekat
-    if (!busyStates.includes(bot.state)) {
-      if (['attack', 'kick', 'skill2'].includes(player.state) && dist < 110 && Math.random() < 0.08) {
-        bot.state = 'block';
-        this.decisionTimer = 18;
+    // 2. Cek serangan melee / skill aktif lawan dalam jarak dekat
+    const offensiveStates = ['attack', 'kick', 'special', 'skill2', 'tag_counter'];
+    if (offensiveStates.includes(opponent.state) && dist < 145) {
+      return { type: 'melee', distance: dist };
+    }
+
+    return null;
+  }
+
+  chooseDefensiveReaction(threat, bot, opponent, groundY, onTagCounter) {
+    const cfg = this.config;
+    const dirAway = opponent.x > bot.x ? -1 : 1;
+
+    // HARD dapat memakai Tag Counter saat sedang block & meter >= 100
+    if (
+      cfg.useTagCounter &&
+      bot.state === 'block' &&
+      threat.type === 'melee' &&
+      typeof onTagCounter === 'function'
+    ) {
+      if (onTagCounter()) {
+        this.currentAction = 'idle';
         return;
       }
-
-      if (player.state === 'special' && dist > 160 && bot.rollCooldown === 0 && Math.random() < 0.06) {
-        if (onRoll(dirToPlayer)) return;
-      }
     }
 
-    // Ambil keputusan taktis berkala
-    if (this.decisionTimer <= 0) {
-      this.decisionTimer = 14 + Math.floor(Math.random() * 14);
-      const rand = Math.random();
+    if (threat.type === 'projectile') {
+      if (cfg.useRoll && bot.rollCooldown === 0 && Math.random() < cfg.evadeChance) {
+        bot.roll(-dirAway);
+        return;
+      }
+      if (bot.y + bot.height >= groundY && Math.random() < cfg.evadeChance) {
+        bot.vy = -16;
+        bot.vx = -dirAway * bot.speed;
+        return;
+      }
+      if (Math.random() < cfg.blockChance) {
+        this.currentAction = 'block';
+        this.decisionTimer = 16;
+      }
+      return;
+    }
 
-      if (dist > 340) {
-        if (bot.specialCooldown === 0 && rand < 0.45) {
-          onCastSpecial();
-          return;
-        }
-        if (bot.dashCooldown === 0 && rand < 0.7) {
-          onDash(dirToPlayer);
-          return;
-        }
-        this.intent = 'approach';
-      } else if (dist > 115) {
-        if (bot.specialCooldown === 0 && rand < 0.25) {
-          onCastSpecial();
-          return;
-        }
-        this.intent = rand < 0.78 ? 'approach' : 'idle';
+    if (threat.type === 'melee') {
+      if (cfg.useRoll && bot.rollCooldown === 0 && Math.random() < cfg.evadeChance * 0.65) {
+        bot.roll(dirAway);
+        return;
+      }
+      if (Math.random() < cfg.blockChance) {
+        this.currentAction = 'block';
+        this.decisionTimer = 18;
+      }
+    }
+  }
+
+  update(bot, partner, opponent, groundY, context) {
+    const {
+      projectiles = [],
+      onSpecial,
+      onSkill2,
+      onDash,
+      onSwitch,
+      onTagCounter,
+      teamMeter = 0,
+    } = context;
+
+    const lockedStates = ['attack', 'kick', 'special', 'skill2', 'tag_counter', 'dash', 'roll', 'stun', 'ko'];
+    if (lockedStates.includes(bot.state)) {
+      this.lastOpponentState = opponent.state;
+      return;
+    }
+
+    const cfg = this.config;
+    const dist = Math.abs(opponent.x - bot.x);
+    const dirToOpponent = opponent.x > bot.x ? 1 : -1;
+
+    // Auto-switch taktis saat HP kritis
+    if (partner && partner.hp > 0 && bot.hp < bot.maxHp * cfg.tagHpThreshold && Math.random() < 0.015) {
+      if (onSwitch && onSwitch()) return;
+    }
+
+    // Deteksi Whiff Punish (lawan baru saja selesai skill / serangan tanpa mengenai bot)
+    const wasSkill = ['special', 'skill2'].includes(this.lastOpponentState);
+    if (wasSkill && opponent.state === 'idle' && dist < 160 && Math.random() < cfg.punishWhiffChance) {
+      this.pendingReaction = null;
+      if (bot.skill2Cooldown === 0 && dist < 110) {
+        onSkill2();
+      } else if (dist > 85 && bot.dashCooldown === 0) {
+        onDash(dirToOpponent);
       } else {
-        // Jarak pukul dekat
-        if (bot.skill2Cooldown === 0 && rand < 0.22) {
-          onCastSkill2();
-          return;
-        }
-        if (rand < 0.55) {
-          bot.attack();
-          this.intent = 'idle';
-          return;
-        }
-        if (rand < 0.78) {
-          bot.kick();
-          this.intent = 'idle';
-          return;
-        }
-        this.intent = rand < 0.9 ? 'block' : 'retreat';
+        bot.attack();
+      }
+      this.lastOpponentState = opponent.state;
+      return;
+    }
+    this.lastOpponentState = opponent.state;
+
+    // Deteksi Ancaman Reaktif dengan reactionDelay
+    const threat = this.detectThreat(bot, opponent, projectiles, dist);
+    if (threat) {
+      if (!this.pendingReaction) {
+        this.pendingReaction = threat;
+        this.reactionCountdown = cfg.reactionDelay;
+      }
+    } else {
+      this.pendingReaction = null;
+      this.reactionCountdown = 0;
+    }
+
+    if (this.pendingReaction) {
+      if (this.reactionCountdown > 0) {
+        this.reactionCountdown--;
+      } else {
+        const activeThreat = this.pendingReaction;
+        this.pendingReaction = null;
+        this.chooseDefensiveReaction(
+          activeThreat,
+          bot,
+          opponent,
+          groundY,
+          teamMeter >= BALANCE.METER_BAR_COST ? onTagCounter : null
+        );
       }
     }
 
-    // Eksekusi pergerakan berdasarkan intent
-    if (!busyStates.includes(bot.state)) {
-      bot.vx = 0;
-      if (this.intent === 'approach') {
-        bot.vx = dirToPlayer * bot.speed * 1.1;
-        bot.state = 'walk';
-      } else if (this.intent === 'retreat') {
-        bot.vx = -dirToPlayer * bot.speed * 0.95;
-        bot.state = 'walk';
-      } else if (this.intent === 'block') {
+    // Eksekusi aksi berjalan jika masih dalam timer
+    if (this.decisionTimer > 0) {
+      this.decisionTimer--;
+      if (this.currentAction === 'block') {
         bot.state = 'block';
+        bot.vx = 0;
+      } else if (this.currentAction === 'approach') {
+        bot.vx = dirToOpponent * bot.speed * 1.15;
+        bot.state = 'walk';
+      } else if (this.currentAction === 'retreat') {
+        bot.vx = -dirToOpponent * bot.speed;
+        bot.state = 'walk';
       } else {
+        bot.vx = 0;
         bot.state = 'idle';
       }
+      return;
+    }
 
-      if (player.y + player.height < groundY - 50 && bot.y + bot.height >= groundY && Math.random() < 0.02) {
-        bot.vy = -16;
+    // Pilih keputusan ofensif berikutnya
+    const roll = Math.random();
+    this.decisionTimer = Math.max(8, Math.floor(14 + Math.random() * 14));
+
+    if (dist > 300) {
+      if (bot.specialCooldown === 0 && roll < cfg.skillChance) {
+        onSpecial();
+        this.currentAction = 'idle';
+      } else if (bot.dashCooldown === 0 && roll < cfg.skillChance + 0.25) {
+        onDash(dirToOpponent);
+        this.currentAction = 'approach';
+      } else {
+        this.currentAction = 'approach';
+      }
+    } else if (dist > 105) {
+      if (bot.skill2Cooldown === 0 && roll < cfg.skillChance * 0.7) {
+        onSkill2();
+        this.currentAction = 'idle';
+      } else if (bot.specialCooldown === 0 && roll < cfg.skillChance) {
+        onSpecial();
+        this.currentAction = 'idle';
+      } else if (bot.dashCooldown === 0 && roll < 0.78) {
+        onDash(dirToOpponent);
+        this.currentAction = 'approach';
+      } else {
+        this.currentAction = 'approach';
+      }
+    } else {
+      // Jarak dekat: eksekusi kombo sesuai batas maxComboChain per level
+      if (bot.skill2Cooldown === 0 && roll < cfg.skillChance * 0.5) {
+        onSkill2();
+        this.currentAction = 'idle';
+      } else if (roll < 0.78) {
+        const useKick = bot.comboStep >= 2 && Math.random() < 0.55;
+        if (useKick) bot.kick();
+        else bot.attack();
+
+        if (bot.comboStep < cfg.maxComboChain) {
+          this.decisionTimer = 5;
+        }
+        this.currentAction = 'idle';
+      } else {
+        this.currentAction = 'retreat';
       }
     }
   }
