@@ -1,0 +1,289 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" width="100%" height="100%">
+  <defs>
+    
+    <linearGradient id="bgMain" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#130509" />
+      <stop offset="50%" stop-color="#08080D" />
+      <stop offset="100%" stop-color="#04101D" />
+    </linearGradient>
+
+    
+    <radialGradient id="auraLeft" cx="22%" cy="50%" r="55%">
+      <stop offset="0%" stop-color="#EF4444" stop-opacity="0.34" />
+      <stop offset="50%" stop-color="#F59E0B" stop-opacity="0.10" />
+      <stop offset="100%" stop-color="#000000" stop-opacity="0" />
+    </radialGradient>
+
+    <radialGradient id="auraRight" cx="80%" cy="52%" r="52%">
+      <stop offset="0%" stop-color="#06B6D4" stop-opacity="0.36" />
+      <stop offset="50%" stop-color="#3B82F6" stop-opacity="0.12" />
+      <stop offset="100%" stop-color="#000000" stop-opacity="0" />
+    </radialGradient>
+
+    
+    <linearGradient id="ragGold" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FEF9C3" />
+      <stop offset="30%" stop-color="#FACC15" />
+      <stop offset="70%" stop-color="#F97316" />
+      <stop offset="100%" stop-color="#B91C1C" />
+    </linearGradient>
+
+    
+    <linearGradient id="dragonFist" x1="0%" y1="50%" x2="100%" y2="50%">
+      <stop offset="0%" stop-color="#DC2626" stop-opacity="0" />
+      <stop offset="55%" stop-color="#F97316" stop-opacity="0.75" />
+      <stop offset="100%" stop-color="#FEF08A" stop-opacity="0.98" />
+    </linearGradient>
+
+    
+    <linearGradient id="plasmaArc" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.98" />
+      <stop offset="45%" stop-color="#38BDF8" stop-opacity="0.88" />
+      <stop offset="100%" stop-color="#1D4ED8" stop-opacity="0" />
+    </linearGradient>
+
+    
+    <linearGradient id="arenaFloor" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1E1B2E" stop-opacity="0.8" />
+      <stop offset="100%" stop-color="#040407" stop-opacity="1" />
+    </linearGradient>
+
+    
+    <pattern id="crtLines" width="4" height="4" patternUnits="userSpaceOnUse">
+      <rect width="4" height="1.5" fill="#FFFFFF" fill-opacity="0.025" />
+    </pattern>
+
+    
+    <filter id="neonBurst" x="-35%" y="-35%" width="170%" height="170%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+
+    <filter id="neonCrisp" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="2.5" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+
+    <clipPath id="bannerClip">
+      <rect x="0" y="0" width="1200" height="400" rx="20" />
+    </clipPath>
+  </defs>
+
+  <g clip-path="url(#bannerClip)">
+    
+    <rect width="1200" height="400" fill="url(#bgMain)" />
+    <rect width="1200" height="400" fill="url(#auraLeft)" />
+    <rect width="1200" height="400" fill="url(#auraRight)" />
+
+    
+    <text x="42" y="295" font-family="&#39;Segoe UI&#39;, &#39;Yu Gothic&#39;, sans-serif" font-weight="900" font-size="115" fill="#FFFFFF" fill-opacity="0.03" letter-spacing="10">ラグナロク</text>
+
+    
+    <g stroke="#FFFFFF" stroke-opacity="0.06" stroke-width="1.5">
+      <line x1="925" y1="212" x2="640" y2="10" />
+      <line x1="925" y1="212" x2="760" y2="0" />
+      <line x1="925" y1="212" x2="1080" y2="0" />
+      <line x1="925" y1="212" x2="1200" y2="65" />
+      <line x1="925" y1="212" x2="1200" y2="345" />
+      <line x1="925" y1="212" x2="660" y2="395" />
+    </g>
+
+    
+    <circle cx="925" cy="212" r="158" fill="#140710" fill-opacity="0.7" stroke="#EF4444" stroke-width="1.5" stroke-opacity="0.35" />
+    <circle cx="925" cy="212" r="134" fill="none" stroke="#38BDF8" stroke-width="1.2" stroke-dasharray="14 8" stroke-opacity="0.4">
+      <animateTransform attributeName="transform" type="rotate" from="0 925 212" to="360 925 212" dur="28s" repeatCount="indefinite" />
+    </circle>
+
+    
+    <polygon points="0,334 1200,334 1200,400 0,400" fill="url(#arenaFloor)" />
+    <line x1="0" y1="334" x2="1200" y2="334" stroke="#EF4444" stroke-width="2" stroke-opacity="0.7" />
+    <g stroke="#FACC15" stroke-opacity="0.14" stroke-width="1.2">
+      <line x1="180" y1="334" x2="50" y2="400" />
+      <line x1="410" y1="334" x2="320" y2="400" />
+      <line x1="650" y1="334" x2="630" y2="400" />
+      <line x1="880" y1="334" x2="920" y2="400" />
+      <line x1="1090" y1="334" x2="1175" y2="400" />
+      <line x1="0" y1="360" x2="1200" y2="360" />
+      <line x1="0" y1="384" x2="1200" y2="384" />
+    </g>
+
+    
+    <g transform="translate(705, 22)">
+      
+      <polygon points="0,6 195,6 186,19 0,19" fill="#18181F" stroke="#FACC15" stroke-width="1.3" />
+      <polygon points="2,8 152,8 146,17 2,17" fill="#FACC15" />
+      
+      <polygon points="148,8 176,8 170,17 142,17" fill="#EF4444" fill-opacity="0.8" />
+      
+      <polygon points="0,23 132,23 126,31 0,31" fill="#18181F" stroke="#F97316" stroke-width="1" />
+      <polygon points="2,25 118,25 114,29 2,29" fill="#F97316" />
+      <text x="2" y="44" font-family="&#39;Consolas&#39;, monospace" font-size="10" font-weight="bold" fill="#FEF08A">P1 • MUHAMMAD ALI [TAG READY]</text>
+
+      
+      <polygon points="222,0 244,18 222,36 200,18" fill="#DC2626" stroke="#FEF08A" stroke-width="1.8" />
+      <text x="222" y="23" text-anchor="middle" font-family="&#39;Impact&#39;, sans-serif" font-size="14" fill="#FFFFFF">VS</text>
+
+      
+      <polygon points="249,6 444,6 444,19 258,19" fill="#18181F" stroke="#38BDF8" stroke-width="1.3" />
+      <polygon points="274,8 442,8 442,17 280,17" fill="#38BDF8" />
+      
+      <polygon points="312,23 444,23 444,31 318,31" fill="#18181F" stroke="#818CF8" stroke-width="1" />
+      <polygon points="326,25 442,25 442,29 330,29" fill="#818CF8" />
+      <text x="442" y="44" text-anchor="end" font-family="&#39;Consolas&#39;, monospace" font-size="10" font-weight="bold" fill="#BAE6FD">[TAG READY] SASAKI KOJIRO • P2</text>
+    </g>
+
+    
+    
+    <g opacity="0.34" transform="translate(692, 114) scale(0.76)">
+      <animateTransform attributeName="transform" type="translate" values="692,114; 692,108; 692,114" dur="2.6s" repeatCount="indefinite" />
+      <circle cx="50" cy="40" r="16" fill="none" stroke="#F59E0B" stroke-width="3" />
+      <path d="M36,62 L64,62 L58,125 L42,125 Z" fill="none" stroke="#F59E0B" stroke-width="3" />
+      <polyline points="44,125 28,175 18,225" fill="none" stroke="#F59E0B" stroke-width="6" stroke-linecap="round" />
+      <polyline points="56,125 74,175 84,225" fill="none" stroke="#F59E0B" stroke-width="6" stroke-linecap="round" />
+      <polyline points="60,72 90,85 112,68" fill="none" stroke="#F59E0B" stroke-width="5.5" stroke-linecap="round" />
+    </g>
+
+    
+    <g opacity="0.34" transform="translate(1082, 110) scale(0.76)">
+      <animateTransform attributeName="transform" type="translate" values="1082,110; 1082,116; 1082,110" dur="2.6s" repeatCount="indefinite" />
+      <circle cx="50" cy="40" r="16" fill="none" stroke="#38BDF8" stroke-width="3" />
+      <path d="M36,62 L64,62 L58,125 L42,125 Z" fill="none" stroke="#38BDF8" stroke-width="3" />
+      <polyline points="44,125 26,175 16,225" fill="none" stroke="#38BDF8" stroke-width="6" stroke-linecap="round" />
+      <polyline points="56,125 76,175 86,225" fill="none" stroke="#38BDF8" stroke-width="6" stroke-linecap="round" />
+      <polyline points="40,72 12,88 -10,70" fill="none" stroke="#38BDF8" stroke-width="5.5" stroke-linecap="round" />
+    </g>
+
+    
+    <g filter="url(#neonCrisp)">
+      <animateTransform attributeName="transform" type="translate" values="0,0; 5,-3; 0,0" dur="1.8s" repeatCount="indefinite" />
+      
+      <path d="M792,190 Q868,182 920,206 Q868,230 792,222 Z" fill="url(#dragonFist)" />
+      
+      <path d="M796,152 Q756,136 724,154 Q752,162 794,160" fill="none" stroke="#EF4444" stroke-width="5.5" stroke-linecap="round" />
+      <path d="M794,158 Q760,164 734,182" fill="none" stroke="#DC2626" stroke-width="4" stroke-linecap="round" />
+      
+      <circle cx="814" cy="158" r="19" fill="#08080D" stroke="#FACC15" stroke-width="3.5" />
+      <path d="M796,152 L832,155" stroke="#EF4444" stroke-width="5" />
+      <polygon points="821,159 831,160 821,164" fill="#FEF08A" />
+      
+      <polygon points="794,182 826,186 810,250 784,244" fill="#08080D" stroke="#FACC15" stroke-width="3" />
+      
+      <polyline points="788,246 752,290 726,334" fill="none" stroke="#FACC15" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" />
+      <polyline points="806,248 844,288 862,334" fill="none" stroke="#FACC15" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" />
+      
+      <polyline points="796,190 772,214 794,228" fill="none" stroke="#F59E0B" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round" />
+      
+      <polyline points="822,192 874,202 914,208" fill="none" stroke="#FACC15" stroke-width="7.5" stroke-linecap="round" stroke-linejoin="round" />
+      <ellipse cx="918" cy="208" rx="15" ry="11.5" fill="#DC2626" stroke="#FEF08A" stroke-width="2.5" />
+    </g>
+
+    
+    <g filter="url(#neonCrisp)">
+      <animateTransform attributeName="transform" type="translate" values="0,-2; -5,2; 0,-2" dur="1.8s" repeatCount="indefinite" />
+      
+      <path d="M975,115 C908,148 902,256 975,298 C932,248 934,158 975,115 Z" fill="url(#plasmaArc)" />
+      
+      <polyline points="942,155 958,142 952,162 972,148" fill="none" stroke="#BAE6FD" stroke-width="2" stroke-linecap="round" />
+      <polyline points="940,255 956,244 950,266 968,256" fill="none" stroke="#38BDF8" stroke-width="2" stroke-linecap="round" />
+      
+      <circle cx="1048" cy="158" r="19" fill="#08080D" stroke="#38BDF8" stroke-width="3.5" />
+      <polygon points="1040,159 1030,160 1040,164" fill="#FFFFFF" />
+      
+      <polyline points="1046,138 1058,122 1068,134 1082,120" fill="none" stroke="#38BDF8" stroke-width="2.5" stroke-linecap="round" />
+      
+      <polygon points="1034,184 1066,182 1074,246 1046,250" fill="#08080D" stroke="#38BDF8" stroke-width="3" />
+      
+      <polyline points="1068,248 1104,290 1126,334" fill="none" stroke="#38BDF8" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" />
+      <polyline points="1050,248 1014,288 996,334" fill="none" stroke="#38BDF8" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" />
+      
+      <polyline points="1062,192 1090,210 1110,198" fill="none" stroke="#0284C7" stroke-width="6.5" stroke-linecap="round" />
+      <line x1="1110" y1="198" x2="1162" y2="154" stroke="#38BDF8" stroke-width="4.5" stroke-linecap="round" />
+      
+      <polyline points="1036,192 994,206 966,212" fill="none" stroke="#38BDF8" stroke-width="7.5" stroke-linecap="round" stroke-linejoin="round" />
+      <line x1="972" y1="222" x2="928" y2="176" stroke="#38BDF8" stroke-width="6.5" stroke-linecap="round" />
+      <line x1="972" y1="222" x2="928" y2="176" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" />
+    </g>
+
+    
+    <g filter="url(#neonBurst)">
+      
+      <circle cx="928" cy="208" r="22" fill="none" stroke="#FEF08A" stroke-width="2.5">
+        <animate attributeName="r" values="16;38;16" dur="1.4s" repeatCount="indefinite" />
+        <animate attributeName="opacity" values="0.95;0.15;0.95" dur="1.4s" repeatCount="indefinite" />
+      </circle>
+      <circle cx="928" cy="208" r="15" fill="#FFFFFF" fill-opacity="0.9" />
+      
+      <polygon points="928,156 934,202 980,208 934,214 928,260 922,214 876,208 922,202" fill="#FFFFFF" />
+      <line x1="898" y1="178" x2="958" y2="238" stroke="#FACC15" stroke-width="3.5" stroke-linecap="round" />
+      <line x1="958" y1="178" x2="898" y2="238" stroke="#38BDF8" stroke-width="3.5" stroke-linecap="round" />
+    </g>
+
+    
+    <circle cx="904" cy="228" r="3" fill="#FACC15">
+      <animate attributeName="cy" values="228;172" dur="1.7s" repeatCount="indefinite" />
+      <animate attributeName="opacity" values="1;0" dur="1.7s" repeatCount="indefinite" />
+    </circle>
+    <circle cx="954" cy="222" r="2.8" fill="#38BDF8">
+      <animate attributeName="cy" values="222;165" dur="2.1s" repeatCount="indefinite" />
+      <animate attributeName="opacity" values="1;0" dur="2.1s" repeatCount="indefinite" />
+    </circle>
+    <circle cx="928" cy="186" r="3.2" fill="#EF4444">
+      <animate attributeName="cy" values="186;132" dur="1.5s" repeatCount="indefinite" />
+      <animate attributeName="opacity" values="1;0" dur="1.5s" repeatCount="indefinite" />
+    </circle>
+
+    
+    
+    <g transform="translate(46, 32)">
+      <polygon points="10,0 448,0 438,32 0,32" fill="#14141D" stroke="#FACC15" stroke-width="1.8" />
+      <circle cx="22" cy="16" r="5" fill="#EF4444">
+        <animate attributeName="opacity" values="1;0.3;1" dur="1.2s" repeatCount="indefinite" />
+      </circle>
+      <text x="36" y="21" font-family="&#39;Consolas&#39;, &#39;Courier New&#39;, monospace" font-weight="900" font-size="12.5" fill="#FEF08A" letter-spacing="0.8">60 FPS CANVAS ENGINE  •  2V2 TAG-TEAM FIGHTER</text>
+    </g>
+
+    
+    <g transform="translate(44, 162)">
+      <text x="7" y="8" font-family="&#39;Impact&#39;, &#39;Arial Black&#39;, sans-serif" font-style="italic" font-weight="900" font-size="98" fill="#3B0707" letter-spacing="4">RAGNAROK</text>
+      <text x="3.5" y="4" font-family="&#39;Impact&#39;, &#39;Arial Black&#39;, sans-serif" font-style="italic" font-weight="900" font-size="98" fill="#991B1B" letter-spacing="4">RAGNAROK</text>
+      <text x="0" y="0" font-family="&#39;Impact&#39;, &#39;Arial Black&#39;, sans-serif" font-style="italic" font-weight="900" font-size="98" fill="url(#ragGold)" stroke="#18181B" stroke-width="2" letter-spacing="4" filter="url(#neonCrisp)">RAGNAROK</text>
+    </g>
+
+    
+    <g transform="translate(46, 186)">
+      <polygon points="12,0 622,0 610,44 0,44" fill="#12121A" stroke="#EF4444" stroke-width="2.2" />
+      <polygon points="12,0 26,0 14,44 0,44" fill="#EF4444" />
+      <text x="318" y="29" text-anchor="middle" font-family="&#39;Consolas&#39;, &#39;Courier New&#39;, monospace" font-weight="900" font-size="19.5" fill="#F8FAFC" letter-spacing="2.2">STICKMAN TAG COMBAT <tspan fill="#FACC15">//</tspan> 10 LEGENDS</text>
+    </g>
+
+    
+    <text x="48" y="256" font-family="&#39;Segoe UI&#39;, Arial, sans-serif" font-weight="600" font-size="14.5" fill="#CBD5E1" letter-spacing="0.3">Duel arcade 2v2 antar tokoh legenda sejarah dengan mekanik Tag Counter &amp; X-Ray.</text>
+
+    
+    <g transform="translate(46, 276)">
+      <polygon points="8,0 198,0 190,36 0,36" fill="#12121A" stroke="#FACC15" stroke-width="1.8" />
+      <text x="99" y="23" text-anchor="middle" font-family="&#39;Consolas&#39;, monospace" font-weight="900" font-size="12.5" fill="#FEF08A" letter-spacing="0.6">⚡ TAG COUNTER</text>
+
+      <polygon points="212,0 406,0 398,36 204,36" fill="#12121A" stroke="#EF4444" stroke-width="1.8" />
+      <text x="305" y="23" text-anchor="middle" font-family="&#39;Consolas&#39;, monospace" font-weight="900" font-size="12.5" fill="#FCA5A5" letter-spacing="0.6">💀 X-RAY FINISHERS</text>
+
+      <polygon points="420,0 614,0 606,36 412,36" fill="#12121A" stroke="#38BDF8" stroke-width="1.8" />
+      <text x="513" y="23" text-anchor="middle" font-family="&#39;Consolas&#39;, monospace" font-weight="900" font-size="12.5" fill="#BAE6FD" letter-spacing="0.6">🎮 1P AI • 2P • LAB</text>
+    </g>
+
+    
+    <rect width="1200" height="400" fill="url(#crtLines)" />
+    <rect x="6" y="6" width="1188" height="388" rx="16" fill="none" stroke="#EF4444" stroke-width="1.5" stroke-opacity="0.42" />
+
+    <path d="M6,40 L6,22 Q6,6 22,6 L44,6" fill="none" stroke="#FACC15" stroke-width="3.5" />
+    <path d="M1194,40 L1194,22 Q1194,6 1178,6 L1156,6" fill="none" stroke="#38BDF8" stroke-width="3.5" />
+    <path d="M6,360 L6,378 Q6,394 22,394 L44,394" fill="none" stroke="#FACC15" stroke-width="3.5" />
+    <path d="M1194,360 L1194,378 Q1194,394 1178,394 L1156,394" fill="none" stroke="#38BDF8" stroke-width="3.5" />
+  </g>
+</svg>
